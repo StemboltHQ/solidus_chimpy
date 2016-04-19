@@ -34,38 +34,13 @@ describe Spree::Chimpy::Subscription do
     end
 
     context "subscribing subscribers" do
-      let(:subscriber)   { Spree::Chimpy::Subscriber.new(email: "test@example.com", subscribed: true) }
+      let(:subscriber_args) {{email: "test@example.com", subscribed: true}}
       let(:subscription) { described_class.new(subscriber) }
 
       it "subscribes subscribers" do
-        interface.should_receive(:subscribe).with(subscriber.email, {}, customer: false)
+        interface.should_receive(:subscribe).with(subscriber_args[:email], {}, customer: false)
         interface.should_not_receive(:segment)
-        subscriber.save
-      end
-    end
-
-    context "resubscribe" do
-      let(:user)         { create(:user, subscribed: true) }
-      let(:subscription) { double(:subscription) }
-
-      before do
-        interface.should_receive(:subscribe).once.with(user.email)
-        user.stub(subscription: subscription)
-      end
-
-      context "when update needed" do
-        it "calls resubscribe" do
-          subscription.should_receive(:resubscribe)
-          user.save
-        end
-      end
-
-      context "when update not needed" do
-        it "still calls resubscribe, and does nothing" do
-          subscription.should_receive(:resubscribe)
-          subscription.should_not_receive(:unsubscribe)
-          user.save
-        end
+        Spree::Chimpy::Subscriber.create(subscriber_args)
       end
     end
 
