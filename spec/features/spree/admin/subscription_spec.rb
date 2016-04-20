@@ -40,7 +40,7 @@ feature 'Chimpy Admin', :js do
 
     click_button 'Create'
 
-    current_path.should eq spree.admin_users_path
+    expect(current_path).to eq spree.admin_users_path
     expect(page).to have_text 'API ACCESS'
     expect(page).to have_text 'NO KEY'
 

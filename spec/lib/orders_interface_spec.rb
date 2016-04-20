@@ -13,7 +13,7 @@ describe Spree::Chimpy::Interface::Orders do
 
     # we need to have a saved order in order to have a non-nil order number
     # we need to stub :notify_mail_chimp otherwise sync will be called on the order on update!
-    order.stub(:notify_mail_chimp).and_return(true)
+    allow(order).to receive(:notify_mail_chimp).and_return(true)
     order.save
     order
   end
@@ -22,9 +22,9 @@ describe Spree::Chimpy::Interface::Orders do
     Spree::Chimpy::Config.key = key
     Spree::Chimpy::Config.store_id = "super-store"
     Spree::Chimpy::Config.subscribe_to_list = true
-    Spree::Chimpy.stub(list: list)
+    allow(Spree::Chimpy).to receive_messages(list: list)
 
-    Mailchimp::API.should_receive(:new).with(key, { timeout: 60 }).and_return(api)
+    expect(Mailchimp::API).to receive(:new).with(key, { timeout: 60 }).and_return(api)
     allow(api).to receive(:ecomm).and_return(api)
   end
 
@@ -45,9 +45,9 @@ describe Spree::Chimpy::Interface::Orders do
     it "skips mismatches member" do
       order = create_order(email_id: 'id-abcd', email: 'user@example.com')
 
-      list.should_receive(:info).with('id-abcd').and_return({email: 'other@home.com'})
+      expect(list).to receive(:info).with('id-abcd').and_return({email: 'other@home.com'})
       expect(list).to receive(:subscribe).with('other@home.com').and_return(nil)
-      api.should_receive(:order_add) do |h|
+      expect(api).to receive(:order_add) do |h|
         expect(h[:id]).to eq order.number
         expect(h[:email_id]).to be_nil
         expect(h[:campaign_id]).to be_nil
@@ -74,7 +74,7 @@ describe Spree::Chimpy::Interface::Orders do
 
   it "removes an order" do
     order = create_order(email: 'foo@example.com')
-    api.should_receive(:order_del).with('super-store', order.number).and_return(true)
+    expect(api).to receive(:order_del).with('super-store', order.number).and_return(true)
     expect(interface.remove(order)).to be_truthy
   end
 end

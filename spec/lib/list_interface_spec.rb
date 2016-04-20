@@ -8,9 +8,9 @@ describe Spree::Chimpy::Interface::List do
 
   before do
     Spree::Chimpy::Config.key = key
-    Mailchimp::API.should_receive(:new).with(key, { timeout: 60 }).and_return(api)
-    lists.stub(:list).and_return(lists)
-    api.stub(:lists).and_return(lists)
+    expect(Mailchimp::API).to receive(:new).with(key, { timeout: 60 }).and_return(api)
+    allow(lists).to receive(:list).and_return(lists)
+    allow(api).to receive(:lists).and_return(lists)
   end
 
   context "#subscribe" do

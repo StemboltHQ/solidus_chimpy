@@ -6,8 +6,8 @@ describe Spree::User do
     subject { FactoryGirl.create(:user_with_subscribe_option) }
 
     it "subscribes the user when the user is created" do
-      Spree::User.any_instance.
-        should_receive(:subscription).
+      expect_any_instance_of(Spree::User).
+        to receive(:subscription).
         once.
         and_return(subscription_double)
       expect(subscription_double).to receive(:subscribe).once
@@ -20,13 +20,13 @@ describe Spree::User do
     let(:subscription) { double(:subscription, needs_update?: true) }
 
     before do
-      subscription.should_receive(:subscribe)
-      Spree::Chimpy::Subscription.should_receive(:new).at_least(1).and_return(subscription)
+      expect(subscription).to receive(:subscribe)
+      expect(Spree::Chimpy::Subscription).to receive(:new).at_least(1).and_return(subscription)
       @user = create(:user_with_subscribe_option)
     end
 
     it "submits after destroy" do
-      subscription.should_receive(:unsubscribe)
+      expect(subscription).to receive(:unsubscribe)
       @user.destroy
     end
   end
