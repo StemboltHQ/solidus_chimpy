@@ -5,18 +5,18 @@
 
 Makes it easy to integrate your [Spree][1] app with [MailChimp][2].
 
-**List synchronization**
+**List Synchronization**
 > Automatically syncs Spree's user list with MailChimp. The user can
 > subscribe/unsubscribe via the registration and account pages.
 
-**Order synchronoization**
-> Fully supports MailChimp's [eCommerce360][3] API. Allows you to
-> create targeted campaigns in MailChimp based on a user's purchase history.
-> We'll even update MailChimp if the order changes after the
-> sale (i.e. order modification, cancelation, return). User's who check out
-> with their email in the Spree Storefront, will accrue order data under this
-> email in MailChimp. This data will be available under the 'E-Commerce' tab
-> for the specific subscriber.
+**Order Synchronization**
+> Fully supports MailChimp's [eCommerce360][3] API. Allows you to create
+> targeted campaigns in MailChimp based on a user's purchase history.  We'll
+> even update MailChimp if the order changes after the sale (i.e. order
+> modification, cancelation, return). Users who check out with their email in
+> the Spree Storefront will accrue order data under this email in MailChimp.
+> This data will be available under the 'E-Commerce' tab for the specific
+> subscriber.
 
 **Campaign Revenue Tracking**
 > Notifies MailChimp when an order originates from a campaign email.
@@ -25,19 +25,19 @@ Makes it easy to integrate your [Spree][1] app with [MailChimp][2].
 > Easily add your own custom merge vars. We'll only sync them when data changes.
 
 **Existing Stores**
-> Provides a handy rake task `rake spree_chimpy:orders:sync` is included
-> to sync up all your existing order data with mail chimp. Run this after
-> installing spree_chimpy to an existing store.
+> Provides a handy rake task `rake spree_chimpy:orders:sync` to sync up all
+> your existing order data with mail chimp. Run this after installing
+> spree_chimpy to an existing store.
 
 **Deferred Processing**
-> Communication between Spree and MailChimp is synchronous by default. If you
-> have `delayed_job` in your bundle, the communication is queued up and
-> deferred to one of your workers. (`sidekiq` support also planned).
+> Communication between Spree and MailChimp is synchronous by default. If
+> you're using `delayed_job`, the communication is queued up and deferred to
+> one of your workers. (`sidekiq` support also planned).
 
 **Angular.js/Sprangular**
 > You can integrate it
 > with [sprangular](https://github.com/sprangular/sprangular) by using
-> the [sprangular_chimpy](https://github.com/sprangular/sprangular_chimpy) gem.
+> [sprangular_chimpy](https://github.com/sprangular/sprangular_chimpy).
 
 ## Installing
 
@@ -67,7 +67,7 @@ Install migrations & initializer file:
 
 If you don't already have an account, you can [create one here][4] for free.
 
-Make sure to create a list if you don't already have one. Use any name you like, just dont forget to update the `Spree::Chimpy::Config#list_name` setting.
+Make sure to create a list if you don't already have one. Use any name you like, just don't forget to update the `Spree::Chimpy::Config#list_name` setting.
 
 ### Spree Setup
 
