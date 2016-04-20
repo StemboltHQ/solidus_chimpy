@@ -17,12 +17,12 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 2.1'
+  s.add_dependency 'solidus', '~>1.0'
   s.add_dependency 'mailchimp-api', '~> 2.0.5'
 
-  s.add_development_dependency 'rspec-rails', '~> 2.99'
+  s.add_development_dependency 'rspec-rails', '~> 3.4'
   s.add_development_dependency 'rubocop'
-  s.add_development_dependency 'capybara', '~> 2.2.1'
+  s.add_development_dependency 'capybara', '~> 2.7'
   s.add_development_dependency 'poltergeist'
   s.add_development_dependency 'factory_girl', '~> 4.4'
   s.add_development_dependency 'shoulda-matchers', '~> 2.5'
@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov', '0.7.1'
   s.add_development_dependency 'database_cleaner', '1.2.0'
   s.add_development_dependency 'coffee-rails', '~> 4.0.1'
-  s.add_development_dependency 'sass-rails', '~> 4.0.2'
+  s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'launchy'
 end

@@ -8,9 +8,9 @@ describe Spree::Chimpy::Interface::List do
 
   before do
     Spree::Chimpy::Config.key = key
-    Mailchimp::API.should_receive(:new).with(key, { timeout: 60 }).and_return(api)
-    lists.stub(:list).and_return(lists)
-    api.stub(:lists).and_return(lists)
+    expect(Mailchimp::API).to receive(:new).with(key, { timeout: 60 }).and_return(api)
+    allow(lists).to receive(:list).and_return(lists)
+    allow(api).to receive(:lists).and_return(lists)
   end
 
   context "#subscribe" do
@@ -62,13 +62,13 @@ describe Spree::Chimpy::Interface::List do
     expect(lists).to receive(:subscribe).
       with('a3d3', {email: 'user@example.com'}, {'SIZE' => '10'},
             'html', true, true, true, true)
-    expect(lists).to receive(:static_segments).with('a3d3').and_return([{"id" => 123, "name" => "customers"}])
+    expect(lists).to receive(:static_segments).with('a3d3', false).and_return([{"id" => 123, "name" => "customers"}])
     expect(lists).to receive(:static_segment_members_add).with('a3d3', 123, [{:email => "user@example.com"}])
     interface.subscribe("user@example.com", {'SIZE' => '10'}, {customer: true})
   end
 
   it "segments" do
-    expect(lists).to receive(:static_segments).with('a3d3').and_return([{"id" => '123', "name" => "customers"}])
+    expect(lists).to receive(:static_segments).with('a3d3', false).and_return([{"id" => '123', "name" => "customers"}])
     expect(lists).to receive(:static_segment_members_add).with('a3d3', 123, [{email: "test@test.nl"}, {email: "test@test.com"}])
     interface.segment(["test@test.nl", "test@test.com"])
   end

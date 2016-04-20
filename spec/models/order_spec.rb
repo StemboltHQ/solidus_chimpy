@@ -27,8 +27,12 @@ describe Spree::Order do
 
     it 'updates when order is completed' do
       new_order = create(:completed_order_with_pending_payment, state: 'confirm')
+      new_order.payments.first.capture!
+      # Capturing the payment updates the order payment state
+      # so we need to reload to have the right information
+      new_order.reload
       expect(subject).to receive(:enqueue).with(:order, new_order)
-      new_order.next
+      new_order.complete!
     end
 
     it 'sync when order is completed' do
