@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'spree', github: 'spree/spree', branch: '2-3-stable'
-gem 'spree_auth_devise', github: "spree/spree_auth_devise", branch: '2-3-stable'
-gem 'byebug'
-gem 'pry-byebug'
+branch = ENV.fetch("SOLIDUS_BRANCH", "master")
+gem 'solidus', github: "solidusio/solidus", branch: branch
+gem 'solidus_auth_devise'
+gem 'pry'
 
 gemspec

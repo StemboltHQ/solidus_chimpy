@@ -31,7 +31,7 @@ feature 'Chimpy', :js do
   def subscribe!
     expect(page).to have_text 'Sign me up to the newsletter'
 
-    fill_in 'Email', with: Faker::Internet.email
+    fill_in 'Email', with: "some.email@email.com"
     fill_in 'Password', with: 'secret123'
     fill_in 'Password Confirmation', with: 'secret123'
 
